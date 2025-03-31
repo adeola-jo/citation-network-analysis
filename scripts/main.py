@@ -55,16 +55,16 @@ def main():
     
     # Run the requested analyses
     if args.basic or args.all:
-        run_script('citation_network_gnn.py')
+        run_script('scripts/citation_network_gnn.py')
     
     if args.compare or args.all:
-        run_script('compare_gnn_architectures.py')
+        run_script('scripts/compare_gnn_architectures.py')
     
     if args.network or args.all:
-        run_script('network_analysis.py')
+        run_script('scripts/network_analysis.py')
     
     if args.link or args.all:
-        run_script('link_prediction.py')
+        run_script('scripts/link_prediction.py')
     
     print_header("Citation Network Analysis Complete")
     print("Results and visualizations have been saved to the output directory.")

@@ -134,6 +134,11 @@ for epoch in range(1, 101):
         pr_aucs.append(pr_auc)
         print(f'Epoch: {epoch:03d}, Loss: {loss:.4f}, ROC-AUC: {roc_auc:.4f}, PR-AUC: {pr_auc:.4f}')
 
+
+
+
+
+
 # Final evaluation
 roc_auc, pr_auc, link_probs, link_labels = test_link_prediction(model, data)
 print(f'\nFinal Test Results:')
@@ -176,6 +181,8 @@ plt.savefig('link_prediction_roc.png')
 plt.close()
 
 # Visualize the Precision-Recall curve
+# Calculate precision and recall values for the final evaluation
+precision, recall, _ = precision_recall_curve(link_labels, link_probs)
 plt.figure(figsize=(8, 6))
 plt.plot(recall, precision, label=f'PR Curve (AUC = {pr_auc:.4f})')
 plt.xlabel('Recall')
@@ -184,6 +191,58 @@ plt.title('Precision-Recall Curve for Link Prediction')
 plt.legend()
 plt.savefig('link_prediction_pr.png')
 plt.close()
+
+
+# # Final evaluation
+# roc_auc, pr_auc, link_probs, link_labels = test_link_prediction(model, data)
+# print(f'\nFinal Test Results:')
+# print(f'  ROC-AUC: {roc_auc:.4f}')
+# print(f'  PR-AUC: {pr_auc:.4f}')
+
+# # Plot the training curve
+# plt.figure(figsize=(10, 4))
+# plt.subplot(1, 2, 1)
+# plt.plot(losses)
+# plt.xlabel('Epoch')
+# plt.ylabel('Loss')
+# plt.title('Training Loss')
+
+# plt.subplot(1, 2, 2)
+# epochs = list(range(10, 101, 10))
+# plt.plot(epochs, roc_aucs, label='ROC-AUC')
+# plt.plot(epochs, pr_aucs, label='PR-AUC')
+# plt.xlabel('Epoch')
+# plt.ylabel('Score')
+# plt.title('Link Prediction Performance')
+# plt.legend()
+
+# plt.tight_layout()
+# plt.savefig('link_prediction_curves.png')
+# plt.close()
+
+# # Visualize the ROC curve
+# from sklearn.metrics import roc_curve
+
+# fpr, tpr, _ = roc_curve(link_labels, link_probs)
+# plt.figure(figsize=(8, 6))
+# plt.plot(fpr, tpr, label=f'ROC Curve (AUC = {roc_auc:.4f})')
+# plt.plot([0, 1], [0, 1], 'k--')
+# plt.xlabel('False Positive Rate')
+# plt.ylabel('True Positive Rate')
+# plt.title('ROC Curve for Link Prediction')
+# plt.legend()
+# plt.savefig('link_prediction_roc.png')
+# plt.close()
+
+# # Visualize the Precision-Recall curve
+# plt.figure(figsize=(8, 6))
+# plt.plot(recall, precision, label=f'PR Curve (AUC = {pr_auc:.4f})')
+# plt.xlabel('Recall')
+# plt.ylabel('Precision')
+# plt.title('Precision-Recall Curve for Link Prediction')
+# plt.legend()
+# plt.savefig('link_prediction_pr.png')
+# plt.close()
 
 print("\nLink prediction analysis complete! Check the output directory for visualization files.")
 
